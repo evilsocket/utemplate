@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>uTemplate Demo</title>
+
+  <script type="text/javascript" src="utemplate.js"></script>
+</head>
+
+<body>
+  
+<pre style="font-size:10px; color: gray;">
+  This file is part of the µTemplate javascript jquery-less template system.
+
+  Copyleft of Simone Margaritelli aka evilsocket &lt;evilsocket[at]gmail.com&gt;
+
+  µTemplate is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  µTemplate is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with µTemplate.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+</pre>
+  
+<script id="even" type="text/x-u-template">
+/*<![CDATA[*/
+<li>{{=item}} is even</li>
+/*]]>*/
+</script>
+
+<script id="odd" type="text/x-u-template">
+/*<![CDATA[*/
+<li>{{=item}} is odd</li>
+/*]]>*/
+</script>
+  
+<script id="mainTemplate" type="text/x-u-template">
+/*<![CDATA[*/
+<div class="container">
+  <h1>{{=title}}</h1>
+  {{if go}}
+    <ul>
+    {{each(i,item) items}}
+      {{if item % 2 == 0}}
+        {{include even}}        
+      {{else i == 2}}
+        <li>${ item() }</li>
+      {{else}}
+        {{include odd}}
+      {{/if}}
+    {{/each}}
+    </ul>
+  {{else}}
+    Nothing to see here dude :(
+  {{/if}}
+</div>
+/*]]>*/
+</script>
+
+<script type="text/javascript">
+
+  var oTemplate = new uTemplate('mainTemplate');
+
+  document.body.innerHTML += oTemplate.compile
+  ({
+    title : 'This is just a \u00B5Template demo',
+    go    : true,
+    items : [ 1, 2, function(){ return 'this is three, i like threeeee'; }, 4 ]
+  });
+
+</script>
+
+</body>
+
+</html>
+
